@@ -1,4 +1,8 @@
 build:
     environment:
-        php:
-            version: 7.1
+        php: 7.1
+        mysql: 5.7
+checks:
+    php:
+        code_rating: true
+        duplication: true
