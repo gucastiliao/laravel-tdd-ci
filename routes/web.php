@@ -14,6 +14,5 @@
 use App\User;
 
 Route::get('/', function () {
-    var_dump(User::get());
     return view('welcome');
 });
