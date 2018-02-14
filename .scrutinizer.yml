@@ -3,9 +3,12 @@ build:
     php: 7.1
     mysql: 5.7
     variables:
-      APP_KEY: 'base64:JCHiBK5X7wuGvFpsmh++TW8CBQLfGM4/VkQ2L9hZKJc='
+      APP_KEY: ''
       API_PREFIX: 'api'
       API_DEBUG: 'true'
+    dependencies:
+      after:
+        command: php artisan key:generate
 checks:
   php:
     code_rating: true
@@ -15,7 +18,7 @@ checks:
 filter:
   excluded_paths:
     - "config/"
-    - "app/Console"
+    - "app/Console/"
     - "public/index.php"
     - "routes/console.php"
     - "database/seeds/"
