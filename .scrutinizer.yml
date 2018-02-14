@@ -6,9 +6,9 @@ build:
       APP_KEY: ''
       API_PREFIX: 'api'
       API_DEBUG: 'true'
-    dependencies:
-      after:
-        command: php artisan key:generate
+  dependencies:
+    after:
+      command: php artisan key:generate
 checks:
   php:
     code_rating: true
