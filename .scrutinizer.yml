@@ -2,9 +2,6 @@ build:
   environment:
     php: 7.1
     mysql: 5.7
-  dependencies:
-    after:
-      command: php artisan key:generate
 checks:
   php:
     code_rating: true
