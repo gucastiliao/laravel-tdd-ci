@@ -1,23 +1,22 @@
 build:
-    environment:
-      php: 7.1
-      mysql: 5.7
-    dependencies:
-      after:
-        -
-	    command: php artisan key:generate
+  environment:
+    php: 7.1
+    mysql: 5.7
+  dependencies:
+    after:
+      command: php artisan key:generate
 checks:
-    php:
-      code_rating: true
-      duplication: true
-      excluded_dependencies:
-        - laravel/framework
+  php:
+    code_rating: true
+    duplication: true
+    excluded_dependencies:
+      - laravel/framework
 filter:
-    excluded_paths:
-      - "config/"
-      - "app/Console"
-      - "public/index.php"
-      - "routes/console.php"
-      - "database/seeds/"
-      - "database/migrations/"
-      - "vendor/"
+  excluded_paths:
+    - "config/"
+    - "app/Console"
+    - "public/index.php"
+    - "routes/console.php"
+    - "database/seeds/"
+    - "database/migrations/"
+    - "vendor/"
