@@ -2,6 +2,10 @@ build:
   environment:
     php: 7.1
     mysql: 5.7
+    variables:
+      APP_KEY: 'base64:JCHiBK5X7wuGvFpsmh++TW8CBQLfGM4/VkQ2L9hZKJc='
+      API_PREFIX: 'api'
+      API_DEBUG: 'true'
 checks:
   php:
     code_rating: true
