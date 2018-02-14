@@ -18,9 +18,7 @@ class PostTest extends TestCase
     {
         factory(\App\Post::class, 5)->create();
 
-        $response = $this->get('/api/posts');
-
-        $response
+        $this->get('/api/posts')
             ->assertStatus(200)
             ->assertJsonCount(5)
             ->assertJsonStructure(
