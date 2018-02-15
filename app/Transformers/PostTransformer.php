@@ -3,10 +3,9 @@
 namespace App\Transformers;
 
 use App\Post;
-use Carbon\Carbon;
 use League\Fractal\TransformerAbstract;
 
-class PostsTransformer extends TransformerAbstract
+class PostTransformer extends TransformerAbstract
 {
     public function transform(Post $post)
     {
@@ -16,7 +15,7 @@ class PostsTransformer extends TransformerAbstract
             'body' => $post->body,
             'author' => $post->author,
             'created_at' => $post->created_at->format('d/m/Y H:i'),
-            'updated_at' => $post->created_at->format('d/m/Y H:i'),
+            'updated_at' => $post->created_at->format('d/m/Y H:i')
         ];
     }
 }
