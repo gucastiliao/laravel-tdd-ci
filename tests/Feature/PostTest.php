@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PostTest extends TestCase
 {
-    use RefreshDatabase;
+//    use RefreshDatabase;
 
     /**
      * Test to fetch posts
@@ -20,11 +20,12 @@ class PostTest extends TestCase
 
         $this->get('/api/posts')
             ->assertStatus(200)
-            ->assertJsonCount(5)
             ->assertJsonStructure(
                 [
-                    '*' => [
-                        'id', 'title', 'body', 'author', 'created_at', 'updated_at'
+                    'data' => [
+                        '*' => [
+                            'id', 'title', 'body', 'author', 'created_at', 'updated_at'
+                        ]
                     ]
                 ]
             );
