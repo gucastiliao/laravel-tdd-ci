@@ -29,4 +29,21 @@ class PostTest extends TestCase
                 ]
             );
     }
+
+    public function testAuthenticateUser()
+    {
+        $user = factory(\App\User::class)->create(
+            [
+                'password' => bcrypt('secret')
+            ]
+        );
+
+        $this->post(
+            '/api/authenticate',
+            [
+                'email' => $user->email,
+                'password' => 'secret'
+            ]
+        )->assertJsonStructure(['token']);
+    }
 }

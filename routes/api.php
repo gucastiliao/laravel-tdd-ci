@@ -17,4 +17,7 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
     $api->get('posts', 'App\Http\Controllers\PostsController@index');
+    $api->post('authenticate', 'App\Http\Controllers\AuthenticateController@authenticate');
+    $api->post('logout', 'App\Http\Controllers\AuthenticateController@logout');
+    $api->get('token', 'App\Http\Controllers\AuthenticateController@getToken');
 });
