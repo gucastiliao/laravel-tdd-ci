@@ -9,7 +9,6 @@ use App\Transformers\PostTransformer;
 
 class PostsController extends Controller
 {
-
     /**
      * Get all posts
      *

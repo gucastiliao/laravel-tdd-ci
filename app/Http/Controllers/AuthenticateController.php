@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use JWTAuth;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use Symfony\Component\HttpKernel\Exception;
 
 class AuthenticateController extends Controller
@@ -23,7 +22,7 @@ class AuthenticateController extends Controller
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['error' => 'invalid credentials'], 401);
             }
-        } catch (JWTException $e) {
+        } catch (\Exception $e) {
             return response()->json(['error' => 'create token error'], 500);
         }
 
@@ -78,7 +77,7 @@ class AuthenticateController extends Controller
 
         try {
             $refreshedToken = JWTAuth::refresh($token);
-        } catch (JWTException $e) {
+        } catch (\Exception $e) {
             return response()->json(
                 [
                     'refreshed' => false,
