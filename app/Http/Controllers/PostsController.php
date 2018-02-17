@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Post;
 use App\Http\Requests\StorePostRequest;
 use Illuminate\Http\Request;
+use App\Transformers\PostTransformer;
 
 class PostsController extends Controller
 {
+
     /**
      * Get all posts
      *
@@ -15,7 +17,10 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return Post::get();
+        $posts = Post::all();
+        $posts = fractal($posts, new PostTransformer)->toArray();
+
+        return response()->json($posts);
     }
 
     /**
