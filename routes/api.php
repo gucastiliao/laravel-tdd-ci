@@ -19,5 +19,10 @@ $api->version('v1', function ($api) {
     $api->get('posts', 'App\Http\Controllers\PostsController@index');
     $api->post('authenticate', 'App\Http\Controllers\AuthenticateController@authenticate');
     $api->post('logout', 'App\Http\Controllers\AuthenticateController@logout');
-    $api->get('token', 'App\Http\Controllers\AuthenticateController@getToken');
+    $api->get('token/refresh', 'App\Http\Controllers\AuthenticateController@refreshToken');
+});
+
+$api->version('v1', ['middleware' => 'api.auth'], function ($api) {
+    $api->get('user', 'App\Http\Controllers\AuthenticateController@authenticatedUser');
+    $api->post('posts', 'App\Http\Controllers\PostsController@store');
 });

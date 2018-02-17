@@ -30,7 +30,12 @@ class PostTest extends TestCase
             );
     }
 
-    public function testAuthenticateUser()
+    /**
+     * Test create a post with auth
+     *
+     * @return void
+     */
+    public function testCreatePost()
     {
         $user = factory(\App\User::class)->create(
             [
@@ -38,12 +43,22 @@ class PostTest extends TestCase
             ]
         );
 
+        $post = [
+            'title' => 'Post title',
+            'body' => 'Post body',
+            'author' => 'Post author'
+        ];
+
         $this->post(
-            '/api/authenticate',
+            '/api/posts',
+            $post,
+            $this->headers($user)
+        )->assertStatus(201)->assertJsonStructure(
             [
-                'email' => $user->email,
-                'password' => 'secret'
+                'title',
+                'body',
+                'author'
             ]
-        )->assertJsonStructure(['token']);
+        );
     }
 }

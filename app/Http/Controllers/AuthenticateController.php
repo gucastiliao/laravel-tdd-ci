@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use JWTAuth;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Symfony\Component\HttpKernel\Exception;
 
 class AuthenticateController extends Controller
 {
@@ -55,16 +56,8 @@ class AuthenticateController extends Controller
      */
     public function authenticatedUser()
     {
-        try {
-            if (!$user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json(['user_not_found'], 404);
-            }
-        } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
-            return response()->json(['token_expired'], $e->getStatusCode());
-        } catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
-            return response()->json(['token_invalid'], $e->getStatusCode());
-        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
-            return response()->json(['token_absent'], $e->getStatusCode());
+        if (!$user = JWTAuth::parseToken()->authenticate()) {
+            return response()->json(['user_not_found'], 404);
         }
 
         return response()->json(compact('user'));
@@ -75,18 +68,31 @@ class AuthenticateController extends Controller
     *
     * @return mixed
     */
-    public function getToken()
+    public function refreshToken()
     {
         $token = JWTAuth::getToken();
+
         if (!$token) {
-            return $this->response->errorMethodNotAllowed('Token not provided');
+            throw new Exception\MethodNotAllowedHttpException([], 'Token not provided');
         }
 
         try {
             $refreshedToken = JWTAuth::refresh($token);
         } catch (JWTException $e) {
-            return $this->response->errorInternal('Not able to refresh Token');
+            return response()->json(
+                [
+                    'refreshed' => false,
+                    'message' => 'Not able to refresh token'
+                ],
+                422
+            );
         }
-        return $this->response->withArray(['token' => $refreshedToken]);
+
+        return response()->json(
+            [
+                'refreshed' => true,
+                'token' => $refreshedToken
+            ]
+        );
     }
 }
